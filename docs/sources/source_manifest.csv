@@ -1,0 +1,6 @@
+path,sha256,bytes,role,ingestion_status,notes
+data/raw/mentor/Historical data provided by santee cooper.xlsx,e60a6c5672476084df0d9fc6fa047c6202225ca0b3093d53fe5d66d111945b42,86757,mentor_raw_historical,authoritative_raw,Immutable source; provisional category correction is applied only in processed data.
+data/raw/mentor/Load Forecast Details - no link.xlsx,c7d9d6de5d60db40100915c18a9cf7292671bf9f4615b14879244aed5c700792,30849,mentor_raw_forecast,authoritative_raw,Primary Santee forecast source for this release.
+data/raw/mentor/forecasts in peak load with_without PPL.xlsx,a92d36e016805b2d7e9652f0e8c166cbfb41c6f5de24f3711c1b2d015980a45d,16051,mentor_derived_forecast,quarantined,Rounded three-year derivative with ambiguous provenance; not used for authoritative ingestion.
+data/raw/mentor/historical utilization metrics.xlsx,15f5e334302a86099d0b5b24a63901482537731a352e234b9ade5e2a3275ddc9,119428,mentor_derived_historical,quarantined,Inherits the historical category anomaly; regenerate from corrected processed data before use.
+Not publicly distributed,,,mentor_statewide_synthesis,authoritative_reference,Provider-level synthesis with source page and table references; never treated as county-demand data.

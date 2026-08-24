@@ -1,0 +1,19 @@
+provider_id,category,metric,available,display_status,forecast_vintage,geography_scope,notes
+santee_cooper,direct_residential_commercial_combined,winter_peak_and_annual_energy,True,Publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,Residential and commercial are combined.
+santee_cooper,direct_industrial,winter_peak_and_annual_energy,True,Publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,
+santee_cooper,municipal_off_system,winter_peak_and_annual_energy,True,Publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,
+santee_cooper,central,winter_peak_and_annual_energy,True,Publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,
+santee_cooper,potential_large_load,winter_peak_and_annual_energy,True,Publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,
+santee_cooper,total_system,winter_peak_and_annual_energy,True,Publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,
+santee_cooper,residential,separate_forecast,False,Not publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,Source publishes a combined direct residential/commercial category.
+santee_cooper,commercial,separate_forecast,False,Not publicly disclosed,Santee Cooper 2025 load forecast,Santee Cooper utility system,Source publishes a combined direct residential/commercial category.
+duke_dec_dep_combined,total_system,peak_and_energy,True,Publicly disclosed,Duke 2025 SC IRP Update,Carolinas-wide DEC+DEP planning areas,Current totals are not South Carolina-only.
+duke_dec_dep_combined,residential_commercial_industrial,retail_sales,True,Publicly disclosed,Duke 2023 Appendix D,Carolinas-wide DEC+DEP planning areas,Older class-series vintage kept separate from current totals.
+duke_dec_dep_combined,residential_commercial_industrial,current_2025_class_forecast,False,Not publicly disclosed,Duke 2025 SC IRP Update,Carolinas-wide DEC+DEP planning areas,No replacement numeric class table in the public update.
+dominion_sc,total_system,annual_energy_and_peaks,True,Publicly disclosed,Dominion 2026 IRP,Dominion Energy South Carolina system,
+dominion_sc,residential_commercial_industrial,absolute_class_forecast,False,Not publicly disclosed,Dominion 2026 IRP,Dominion Energy South Carolina system,"Bridge values are changes versus a prior forecast, not absolute category demand."
+central_electric,total_system,annual_energy_and_peaks,True,Publicly disclosed,Central 2023 IRP,Central cooperative wholesale system,
+central_electric,residential_commercial,customer_accounts,True,Publicly disclosed,Central 2023 IRP,Central cooperative wholesale system,"Counts are customer accounts, not MW or energy."
+central_electric,residential_commercial_industrial,class_demand,False,Not publicly disclosed,Central 2023 IRP,Central cooperative wholesale system,Class MW/GWh are not publicly disclosed.
+lockhart_power,all_categories,detailed_demand_forecast,False,Not publicly disclosed,Lockhart 2023 IRP,Lockhart distribution system,Supplier relationship is public; detailed class forecast is not.
+municipal_utilities,all_categories,class_demand_forecast,False,Not publicly disclosed,Municipal IRPs reviewed,Municipal retail systems,Supplier relationships are public; class forecasts are not.
