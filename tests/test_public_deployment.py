@@ -13,10 +13,12 @@ def test_runtime_assets_are_committed_and_not_raw_sources() -> None:
         config.PROVIDERS_CSV,
         config.PROFILES_CSV,
         config.FORECASTS_CSV,
+        config.FORECASTS_2026_CSV,
         config.AVAILABILITY_CSV,
         config.SOURCES_CSV,
         config.QUALITY_EVENTS_CSV,
         config.SANTEE_DEMAND_CSV,
+        config.SANTEE_DEMAND_2026_CSV,
         config.SANTEE_HISTORICAL_CSV,
     ]
     assert all(path.is_file() for path in runtime_assets)
