@@ -15,7 +15,13 @@ class StatewideDataTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.counties = pd.read_csv(ROOT / "data" / "sc_counties.csv", dtype={"fips": str})
         cls.providers = pd.read_csv(ROOT / "data" / "processed" / "providers.csv")
-        cls.forecasts = pd.read_csv(ROOT / "data" / "processed" / "provider_forecasts.csv")
+        cls.forecasts = pd.concat(
+            [
+                pd.read_csv(ROOT / "data" / "processed" / "provider_forecasts.csv"),
+                pd.read_csv(ROOT / "data" / "processed" / "provider_forecasts_2026.csv"),
+            ],
+            ignore_index=True,
+        )
         cls.availability = pd.read_csv(ROOT / "data" / "processed" / "data_availability.csv")
         cls.sources = pd.read_csv(ROOT / "data" / "processed" / "source_metadata.csv")
         cls.quality = pd.read_csv(ROOT / "data" / "processed" / "data_quality_events.csv")
