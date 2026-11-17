@@ -10,8 +10,8 @@ The live dashboard uses committed, normalized processed data. Raw mentor-supplie
 
 ## Dashboard sections
 
-- **Statewide Provider Explorer** renders all 46 counties, shows non-exclusive provider/service relationships, connects retail entities to relevant planning-system forecasts, and keeps public large-load announcements in a separate contextual layer.
-- **Santee Cooper Deep Dive** preserves historical and 2025–2044 forecast views, including with-PLL, without-PLL, PLL-only, high, and low cases. Direct residential and commercial remain combined.
+- **Statewide Provider Explorer** renders all 46 counties, shows non-exclusive provider/service relationships, connects retail entities to relevant planning-system forecasts, and preserves multiple forecast vintages where available. The newest vintage is selected by default while older vintages remain available for comparison. Public large-load announcements stay in a separate contextual layer.
+- **Santee Cooper Deep Dive** preserves historical data plus both the 2025 load forecast and the 2026 Triennial IRP forecast. Users can switch forecast vintage and compare with-PLL, without-PLL, PLL-only, high, and low cases. Direct residential and commercial remain combined.
 - **Methodology and Data Quality** exposes source metadata, availability gaps, overlap warnings, quarantined inputs, and provisional corrections.
 
 ## Run locally
@@ -54,7 +54,7 @@ The EIA file is not committed. Its SHA-256 is recorded in `data/processed/source
 - `clean_data.py` — private-archive Santee ingestion tooling; the public app does not run it.
 - `scripts/build_statewide_data.py` — statewide normalization from EIA-861 plus the supplied report.
 - `data/raw/mentor/` — retained only on the private `main` branch; omitted here.
-- `data/processed/` — normalized provider and Santee datasets.
+- `data/processed/` — normalized provider and Santee datasets, including separate 2026 refresh files so earlier forecast vintages remain reproducible.
 - `data/reference/` — county/provider relationships and contextual large-load projects.
 - `outputs/` — compatibility outputs and the static HTML review artifact.
 - `docs/` — methodology, architecture, dictionary, source manifest, and workbook audit.
