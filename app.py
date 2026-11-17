@@ -349,7 +349,17 @@ def santee_deep_dive(data: DashboardData) -> None:
 
     view = st.radio("Data period", ["Forecast", "Historical"], horizontal=True)
     dataset = view.lower()
-    available = data.santee_demand.loc[data.santee_demand["dataset"].eq(dataset)]
+    available = data.santee_demand.loc[data.santee_demand["dataset"].eq(dataset)].copy()
+    selected_vintage = None
+    if dataset == "forecast":
+        vintages = sorted(available["forecast_vintage"].dropna().unique())
+        selected_vintage = st.selectbox(
+            "Forecast vintage",
+            vintages,
+            index=len(vintages) - 1,
+            key="santee_vintage",
+        )
+        available = available.loc[available["forecast_vintage"].eq(selected_vintage)].copy()
     metric_values = available["metric_key"].drop_duplicates().tolist()
     metric_options = option_map(metric_values)
     control_cols = st.columns([1, 1, 1.2])
@@ -402,7 +412,7 @@ def santee_deep_dive(data: DashboardData) -> None:
         with historical_cols[2]:
             _card("Data status", humanize(selected["reported_or_modeled"]))
 
-    chart = santee_series_chart(data.santee_demand, str(metric_key), dataset, int(selected_year))
+    chart = santee_series_chart(available, str(metric_key), dataset, int(selected_year))
     if chart is not None:
         st.plotly_chart(chart, width="stretch", key="santee_series_chart")
 
@@ -519,8 +529,9 @@ def methodology(data: DashboardData) -> None:
     st.subheader("Forecast vintage and double-counting risk")
     st.markdown(
         """
-        Forecast vintages are not silently combined. Duke 2023 class forecasts, Duke 2025 Carolinas-wide totals,
-        and Spring 2026 large-load records remain distinct. Dominion bridge figures are **changes from a prior
+        Forecast vintages are not silently combined. Duke 2023 class forecasts, Duke 2025 and 2026 Carolinas-wide
+        forecasts, Santee Cooper 2025 and 2026 forecasts, and Spring 2026 large-load records remain distinct.
+        Dominion bridge figures are **changes from a prior
         forecast**, not absolute category demand. Central class values are customer-account counts unless explicit
         energy or capacity units are supplied. Santee, Central, member cooperative, municipal, and supplier totals
         can overlap and must not be summed as independent demand.
