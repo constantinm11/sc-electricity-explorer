@@ -25,6 +25,8 @@ def test_santee_page_smoke() -> None:
     assert not app.exception
     assert app.title[0].value == "Santee Cooper Deep Dive"
     assert any("What is potential large load?" in block.value for block in app.markdown)
+    vintage = next(box for box in app.selectbox if box.label == "Forecast vintage")
+    assert vintage.value == "Santee Cooper 2026 Triennial IRP"
 
 
 def test_santee_historical_state_smoke() -> None:
