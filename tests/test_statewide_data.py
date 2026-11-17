@@ -55,6 +55,27 @@ class StatewideDataTests(unittest.TestCase):
         overlapping = self.forecasts[self.forecasts["provider_id"].isin(["santee_cooper", "central_electric", "duke_dec_dep_combined"])]
         self.assertTrue(overlapping["do_not_sum_group"].notna().all())
 
+    def test_2026_forecast_vintages_are_available(self) -> None:
+        santee = self.forecasts[
+            (self.forecasts["provider_id"] == "santee_cooper")
+            & (self.forecasts["forecast_vintage"] == "Santee Cooper 2026 Triennial IRP")
+        ]
+        self.assertFalse(santee.empty)
+        santee_2040 = santee[
+            (santee["year"] == 2040)
+            & (santee["metric"] == "winter_peak")
+            & (santee["category"] == "total_system")
+            & (santee["scenario"] == "base")
+        ]
+        self.assertEqual(float(santee_2040.iloc[0]["value"]), 7246.0)
+
+        duke = self.forecasts[
+            (self.forecasts["provider_id"] == "duke_dec_dep_combined")
+            & (self.forecasts["forecast_vintage"] == "Duke 2026 Carolinas Resource Plan")
+        ]
+        self.assertFalse(duke.empty)
+        self.assertTrue(duke["geography_scope"].str.contains("Carolinas-wide").all())
+
     def test_unavailable_categories_are_explicit(self) -> None:
         unavailable = self.availability[~self.availability["available"]]
         self.assertGreater(len(unavailable), 0)
