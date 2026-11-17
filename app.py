@@ -236,8 +236,12 @@ def statewide_explorer(data: DashboardData) -> None:
     if not forecasts.empty:
         control_cols = st.columns(3)
         with control_cols[0]:
+            vintages = sorted(forecasts["forecast_vintage"].unique())
             vintage = st.selectbox(
-                "Forecast vintage", sorted(forecasts["forecast_vintage"].unique()), key="provider_vintage"
+                "Forecast vintage",
+                vintages,
+                index=len(vintages) - 1,
+                key="provider_vintage",
             )
         vintage_rows = forecasts.loc[forecasts["forecast_vintage"].eq(vintage)]
         metric_options = option_map(sorted(vintage_rows["metric"].unique()))
