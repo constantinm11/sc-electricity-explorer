@@ -36,7 +36,11 @@ def load_dashboard_data() -> DashboardData:
     lookup = _read_csv(config.COUNTY_LOOKUP_CSV, dtype={"county_fips": str})
     projects = _read_csv(config.LARGE_LOAD_CSV, dtype={"county_fips": str})
     forecasts = _read_csv(config.FORECASTS_CSV)
+    if config.FORECASTS_2026_CSV.is_file():
+        forecasts = pd.concat([forecasts, _read_csv(config.FORECASTS_2026_CSV)], ignore_index=True)
     santee = _read_csv(config.SANTEE_DEMAND_CSV)
+    if config.SANTEE_DEMAND_2026_CSV.is_file():
+        santee = pd.concat([santee, _read_csv(config.SANTEE_DEMAND_2026_CSV)], ignore_index=True)
     historical = _read_csv(config.SANTEE_HISTORICAL_CSV)
 
     for frame in (forecasts, projects, santee, historical):
