@@ -15,7 +15,13 @@ class StatewideDataTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.counties = pd.read_csv(ROOT / "data" / "sc_counties.csv", dtype={"fips": str})
         cls.providers = pd.read_csv(ROOT / "data" / "processed" / "providers.csv")
-        cls.forecasts = pd.read_csv(ROOT / "data" / "processed" / "provider_forecasts.csv")
+        cls.forecasts = pd.concat(
+            [
+                pd.read_csv(ROOT / "data" / "processed" / "provider_forecasts.csv"),
+                pd.read_csv(ROOT / "data" / "processed" / "provider_forecasts_2026.csv"),
+            ],
+            ignore_index=True,
+        )
         cls.availability = pd.read_csv(ROOT / "data" / "processed" / "data_availability.csv")
         cls.sources = pd.read_csv(ROOT / "data" / "processed" / "source_metadata.csv")
         cls.quality = pd.read_csv(ROOT / "data" / "processed" / "data_quality_events.csv")
@@ -54,6 +60,27 @@ class StatewideDataTests(unittest.TestCase):
         self.assertTrue((accounts["unit"] == "accounts").all())
         overlapping = self.forecasts[self.forecasts["provider_id"].isin(["santee_cooper", "central_electric", "duke_dec_dep_combined"])]
         self.assertTrue(overlapping["do_not_sum_group"].notna().all())
+
+    def test_2026_forecast_vintages_are_available(self) -> None:
+        santee = self.forecasts[
+            (self.forecasts["provider_id"] == "santee_cooper")
+            & (self.forecasts["forecast_vintage"] == "Santee Cooper 2026 Triennial IRP")
+        ]
+        self.assertFalse(santee.empty)
+        santee_2040 = santee[
+            (santee["year"] == 2040)
+            & (santee["metric"] == "winter_peak")
+            & (santee["category"] == "total_system")
+            & (santee["scenario"] == "base")
+        ]
+        self.assertEqual(float(santee_2040.iloc[0]["value"]), 7246.0)
+
+        duke = self.forecasts[
+            (self.forecasts["provider_id"] == "duke_dec_dep_combined")
+            & (self.forecasts["forecast_vintage"] == "Duke 2026 Carolinas Resource Plan")
+        ]
+        self.assertFalse(duke.empty)
+        self.assertTrue(duke["geography_scope"].str.contains("Carolinas-wide").all())
 
     def test_unavailable_categories_are_explicit(self) -> None:
         unavailable = self.availability[~self.availability["available"]]
